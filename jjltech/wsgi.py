@@ -14,7 +14,7 @@ from dotenv import load_dotenv
 
 load_dotenv()  # take environment variables from .env.
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'jjltech.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'jjltech.settings.local')
 if os.getenv('ENV') == 'production':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'jjltech.settings.production')
 
