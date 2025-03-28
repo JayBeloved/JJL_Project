@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class PitchdeckConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'pitchdeck'
+    name = 'jjltech.apps.pitchdeck'

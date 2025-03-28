@@ -1,0 +1,84 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load pitch_filters %}
+
+{% block title %} Edit PitchDeck {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row"></div>
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title"><i class="material-icons" style="font-size: 24px;">text_fields</i> Create PitchDeck</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_pitch">
+                                <i class="material-icons" style="font-size: 16px; vertical-align: middle;">description</i> 
+                                Pitch
+                            </label>
+                            {{ form.pitch|add_class:"form-control" }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_industry">
+                                <i class="material-icons" style="font-size: 16px; vertical-align: middle;">business</i> 
+                                Industry
+                            </label>
+                            {{ form.industry|add_class:"form-control" }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_instagram">
+                                <i class="material-icons" style="font-size: 16px; vertical-align: middle;">camera_alt</i> 
+                                Instagram URL
+                            </label>
+                            {{ form.instagram|add_class:"form-control" }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_linkedin">
+                                <i class="material-icons" style="font-size: 16px; vertical-align: middle;">business_center</i> 
+                                LinkedIn URL
+                            </label>
+                            {{ form.linkedin|add_class:"form-control" }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_website">
+                                <i class="material-icons" style="font-size: 16px; vertical-align: middle;">public</i> 
+                                Website URL
+                            </label>
+                            {{ form.website|add_class:"form-control" }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_twitter">
+                                <i class="material-icons" style="font-size: 16px; vertical-align: middle;">X</i> 
+                                Twitter URL
+                            </label>
+                            {{ form.twitter|add_class:"form-control" }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_facebook">
+                                <i class="material-icons" style="font-size: 16px; vertical-align: middle;">facebook</i> 
+                                Facebook URL
+                            </label>
+                            {{ form.facebook|add_class:"form-control" }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_youtube">
+                                <i class="material-icons" style="font-size: 16px; vertical-align: middle;">play_circle_filled</i> 
+                                YouTube URL
+                            </label>
+                            {{ form.youtube|add_class:"form-control" }}
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="material-icons" style="font-size: 16px; vertical-align: middle;">check</i> 
+                            Save Changes
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

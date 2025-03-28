@@ -1,0 +1,78 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %} Edit Profile {% endblock %}
+
+{% block stylesheets %}
+<style>
+  .profile-image-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+  }
+  .form-control-file {
+    margin-top: 10px;
+  }
+  .country-select-wrapper {
+    display: flex;
+    align-items: center;
+  }
+  .country-select-wrapper img {
+    margin-right: 10px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Edit Profile</h4>
+        </div>
+        <div class="card-body">
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+              <div class="profile-image-wrapper">
+                {% if user.profile.profile_image %}
+                  <img src="{{ user.profile.profile_image.url }}" class="profile-image" alt="Profile Image">
+                {% else %}
+                  <img src="{% static 'accounts/signup/images/placeholder-profile.jpg' %}" class="profile-image" alt="Default Profile Image">
+                {% endif %}
+              </div>
+              <label for="profile_image">Profile Image</label>
+              {{ form.profile_image|add_class:"form-control-file" }}
+            </div>
+            <div class="form-group">
+              <label for="headline">Headline</label>
+              {{ form.headline|add_class:"form-control" }}
+            </div>
+            <div class="form-group">
+              <label for="country">Country</label>
+              <div class="country-select-wrapper">
+                {{ form.country|add_class:"form-control" }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="bio">Bio</label>
+              {{ form.bio|add_class:"form-control" }}
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,85 @@
+<div class="sidebar" data-color="purple" data-background-color="white" data-image="/static/assets/img/sidebar-1.jpg">
+  <div class="logo">
+    <a target="_blank" rel="noopener noreferrer" 
+       href="{% url 'core:dashboard' %}" class="simple-text logo-normal">
+      PITCHDECK
+    </a>
+  </div>
+  <div class="sidebar-wrapper">
+    <ul class="nav">
+      {% if request.user.is_authenticated %}
+        <li class="nav-item {% if 'dashboard' in request.path %} active {% endif %}">
+          <a class="nav-link" href="{% url 'core:dashboard' %}">
+            <i class="material-icons">dashboard</i>
+            <p>Dashboard</p>
+          </a>
+        </li>
+        <li class="nav-item {% if 'profile' in request.path %} active {% endif %}">
+          <a class="nav-link" data-toggle="collapse" href="#profileMenu" aria-expanded="false">
+            <i class="material-icons">person</i>
+            <p>Profile</p>
+          </a>
+          <div class="collapse" id="profileMenu">
+            <ul class="nav">
+              <li class="nav-item {% if 'view-profile' in request.path %} active {% endif %}">
+                <a class="nav-link" href="{% url 'accounts:view_profile' %}">
+                  <i class="material-icons">visibility</i>
+                  <p>View Profile</p>
+                </a>
+              </li>
+              <li class="nav-item {% if 'edit-profile' in request.path %} active {% endif %}">
+                <a class="nav-link" href="{% url 'accounts:edit_profile' %}">
+                  <i class="material-icons">edit</i>
+                  <p>Edit Profile</p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item {% if 'pitchdeck' in request.path %} active {% endif %}">
+          <a class="nav-link" data-toggle="collapse" href="#pitchdeckMenu" aria-expanded="false">
+            <i class="material-icons">assignment</i>
+            <p>PitchDeck</p>
+          </a>
+          <div class="collapse" id="pitchdeckMenu">
+            <ul class="nav">
+                <li class="nav-item {% if 'create-pitchdeck' in request.path %} active {% endif %}"></li>
+                <a class="nav-link" href="{% url 'pitchdeck:create' %}">
+                  <i class="material-icons">add</i>
+                  <p>Create PitchDeck</p>
+                </a>
+                </li>
+                <li class="nav-item {% if 'detail-pitchdeck' in request.path %} active {% endif %}">
+                <a class="nav-link" href="{% url 'pitchdeck:detail' %}">
+                  <i class="material-icons">visibility</i>
+                  <p>View PitchDeck</p>
+                </a>
+                </li>
+              
+              <li class="nav-item {% if 'edit-pitchdeck' in request.path %} active {% endif %}">
+                <a class="nav-link" href="{% url 'pitchdeck:edit' %}">
+                  <i class="material-icons">edit</i>
+                  <p>Edit PitchDeck</p>
+                </a>
+              </li>
+              <li class="nav-item {% if 'pitchdeck-board' in request.path %} active {% endif %}">
+                <a class="nav-link" href="{% url 'pitchdeck:board' %}">
+                  <i class="material-icons">dashboard</i>
+                  <p>PitchDeck Board</p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'accounts:logout' %}">
+            <i class="material-icons">directions_run</i>
+            <p>Logout</p>
+          </a>
+        </li>
+      {% else %}
+        <!-- Add any links for non-authenticated users if needed -->
+      {% endif %}
+    </ul>
+  </div>
+</div>

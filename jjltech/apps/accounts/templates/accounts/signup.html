@@ -1,0 +1,150 @@
+{% load static %}
+{% load custom_filters %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="colorlib.com">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'accounts/signup/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{% static 'accounts/signup/css/style.css' %}">
+
+    
+    <style>
+    .profile-image-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    .profile-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #ddd;
+    }
+    .form-control-file {
+        margin-top: 10px;
+    }
+    .country-select-wrapper {
+        display: flex;
+        align-items: center;
+    }
+    .country-select-wrapper img {
+        margin-right: 10px;
+    }
+    </style>
+</head>
+
+<body>
+
+    <div class="main">
+
+        <div class="container">
+            <h2>Sign Up</h2>
+            <form method="post" enctype="multipart/form-data" id="signup-form" class="signup-form" action="{% url 'accounts:signup' %}">
+                {% csrf_token %}
+                {% if form.errors %}
+                    <p class="error">Please correct the error{{ form.errors|pluralize }} below.</p>
+                {% endif %}
+
+                <!-- Account Information -->
+                <h3>
+                    <span class="title_text">Account Information</span>
+                </h3>
+                <fieldset>
+                    <div class="fieldset-content">
+                        <div class="form-group">
+                            <label for="id_username" class="form-label">Username</label>
+                            {{ form.username|add_class:"form-control" }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_password1" class="form-label">Password</label>
+                            {{ form.password1|add_class:"form-control" }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_password2" class="form-label">Confirm Password</label>
+                            {{ form.password2|add_class:"form-control" }}
+                        </div>
+                    </div>
+                    <div class="fieldset-footer">
+                        <span>Step 1 of 3</span>
+                    </div>
+                </fieldset>
+
+                <!-- Personal Information -->
+                <h3>
+                    <span class="title_text">Personal Information</span>
+                </h3>
+                <fieldset>
+                    <div class="fieldset-content">
+                        <div class="form-group">
+                            <label for="id_first_name" class="form-label">First Name</label>
+                            {{ form.first_name|add_class:"form-control" }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_last_name" class="form-label">Last Name</label>
+                            {{ form.last_name|add_class:"form-control" }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_email" class="form-label">Email</label>
+                            {{ form.email|add_class:"form-control" }}
+                        </div>
+                    </div>
+                    <div class="fieldset-footer">
+                        <span>Step 2 of 3</span>
+                    </div>
+                </fieldset>
+
+                <!-- Profile Information -->
+                <h3>
+                    <span class="title_text">Profile Information</span>
+                </h3>
+                <fieldset>
+                    <div class="fieldset-content">
+                        <div class="form-group">
+                            <label for="id_country" class="form-label">Country</label>
+                            {{ form.country|add_class:"form-control form-select" }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_headline" class="form-label">Headline</label>
+                            {{ form.headline|add_class:"form-control" }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_bio" class="form-label">Bio</label>
+                            {{ form.bio|add_class:"form-control" }}
+                        </div>
+                    </div>
+                    <div class="fieldset-footer">
+                        <span>Step 3 of 3</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                </fieldset>
+
+               
+            </form>
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script src="{% static 'accounts/signup/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'accounts/signup/vendor/jquery-validation/dist/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'accounts/signup/vendor/jquery-validation/dist/additional-methods.min.js' %}"></script>
+    <script src="{% static 'accounts/signup/vendor/jquery-steps/jquery.steps.min.js' %}"></script>
+    <script src="{% static 'accounts/signup/vendor/minimalist-picker/dobpicker.js' %}"></script>
+    <script src="{% static 'accounts/signup/vendor/jquery.pwstrength/jquery.pwstrength.js' %}"></script>
+    <script src="{% static 'accounts/signup/js/main.js' %}"></script>
+</body>
+
+</html>

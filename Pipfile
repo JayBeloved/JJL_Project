@@ -4,6 +4,22 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+dj-database-url = "*"
+django = "*"
+psycopg2-binary = "*"
+python-decouple = "*"
+pytz = "*"
+black = "*"
+coverage = "*"
+factory-boy = "*"
+flake8 = "*"
+isort = "*"
+tox = "*"
+django-debug-toolbar = "*"
+ipython = "*"
+dotenv = "*"
+pillow = "*"
+django-countries = "*"
 
 [dev-packages]
 

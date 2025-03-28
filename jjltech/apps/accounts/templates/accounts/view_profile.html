@@ -1,0 +1,37 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %} View Profile {% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Profile</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4">
+              {% if user.profile.profile_image %}
+                <img src="{{ user.profile.profile_image.url }}" class="img-fluid rounded-circle" alt="Profile Image">
+              {% else %}
+                <img src="{% static 'accounts/default_image.png' %}" class="img-fluid rounded-circle" alt="Default Profile Image">
+              {% endif %}
+            </div>
+            <div class="col-md-8">
+              <h3>{{ request.user.first_name }} {{ request.user.last_name }}</h3>
+              <h5>@{{ request.user.username }}</h5>
+              <p><strong>Headline:</strong> {{ user.profile.headline }}</p>
+              <p><strong>Country:</strong> {{ user.profile.country }}</p>
+              <p><strong>Bio:</strong> {{ user.profile.bio }}</p>
+              <a href="{% url 'accounts:edit_profile' %}" class="btn btn-primary mt-3">Edit Profile</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

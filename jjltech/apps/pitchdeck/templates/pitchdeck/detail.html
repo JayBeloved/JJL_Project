@@ -1,0 +1,29 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %} PitchDeck Details {% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">{{ pitch.user.username }}'s PitchDeck</h4>
+        </div>
+        <div class="card-body">
+          <p><strong>Pitch:</strong> {{ pitch.pitch }}</p>
+          <p><strong>Instagram:</strong> <a href="{{ pitch.instagram }}" target="_blank">{{ pitch.instagram }}</a></p>
+          <p><strong>LinkedIn:</strong> <a href="{{ pitch.linkedin }}" target="_blank">{{ pitch.linkedin }}</a></p>
+          <p><strong>Website:</strong> <a href="{{ pitch.website }}" target="_blank">{{ pitch.website }}</a></p>
+          <p><strong>Twitter:</strong> <a href="{{ pitch.twitter }}" target="_blank">{{ pitch.twitter }}</a></p>
+          <p><strong>Facebook:</strong> <a href="{{ pitch.facebook }}" target="_blank">{{ pitch.facebook }}</a></p>
+          <p><strong>YouTube:</strong> <a href="{{ pitch.youtube }}" target="_blank">{{ pitch.youtube }}</a></p>
+          <p><strong>Clicks:</strong> {{ pitch.clicks }}</p>
+          <p><strong>Likes:</strong> {{ pitch.likes }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
