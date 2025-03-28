@@ -1,203 +1,113 @@
+{% extends "layouts/board_base.html" %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block title %}PitchDeck - Showcase Your Ideas{% endblock %}
 
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>PitchDeck - Showcase Your Ideas</title>
-  <meta name="description" content="PitchDeck is the ultimate platform for showcasing your ideas, connecting with others, and building meaningful professional relationships.">
-  <meta name="keywords" content="PitchDeck, networking, professional connections, showcase ideas, pitch platform">
+{% block content %}
+<!-- Hero Section -->
+<section id="hero" class="hero section">
+  <div class="hero-bg">
+    <img src="{% static 'core/img/hero-bg-light.webp' %}" alt="">
+  </div>
+  <div class="container text-center">
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <h1 data-aos="fade-up">Welcome to <span>PitchDeck</span></h1>
+      <p data-aos="fade-up" data-aos-delay="100">Showcase your ideas, connect with professionals, and build meaningful relationships.</p>
+      <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+        <a href="{% url 'accounts:signup' %}" class="btn-get-started">Get Started</a>
+        <a href="{% url 'pitchdeck:board' %}" class="btn-watch-video d-flex align-items-center"><i class="bi bi-arrow-right-circle"></i><span>Go to PitchBoard</span></a>
+      </div>
+      <img src="{% static 'core/img/hero-services-img.webp' %}" class="img-fluid hero-img" alt="" data-aos="zoom-out" data-aos-delay="300">
+    </div>
+  </div>
+</section>
 
-  <!-- Favicons -->
-  <link href="{% static 'core/img/favicon.png' %}" rel="icon">
-  <link href="{% static 'core/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="{% static 'core/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-  <link href="{% static 'core/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
-  <link href="{% static 'core/vendor/aos/aos.css' %}" rel="stylesheet">
-  <link href="{% static 'core/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
-  <link href="{% static 'core/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
-
-  <!-- Main CSS File -->
-  <link href="{% static 'core/css/main.css' %}" rel="stylesheet">
-   <!-- =======================================================
-  * Template Name: QuickStart
-  * Template URL: https://bootstrapmade.com/quickstart-bootstrap-startup-website-template/
-  * Updated: Aug 07 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-</head>
-
-<body class="index-page">
-
-  <header id="header" class="header d-flex align-items-center fixed-top">
-    <div class="container-fluid container-xl position-relative d-flex align-items-center">
-
-      <a href="{% url 'core:index' %}" class="logo d-flex align-items-center me-auto">
-        <img src="{% static 'core/img/logo.png' %}" alt="">
-        <h1 class="sitename">PitchDeck</h1>
-      </a>
-
-      <nav id="navmenu" class="navmenu">
+<!-- About Section -->
+<section id="about" class="about section">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
+        <h3>What is PitchDeck?</h3>
+        <p class="fst-italic">
+          PitchDeck is a platform designed to help you showcase your ideas, connect with like-minded professionals, and build your network.
+        </p>
         <ul>
-          <li><a href="#hero" class="active">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><i class="bi bi-check-circle"></i> Create and share your personalized pitch.</li>
+          <li><i class="bi bi-check-circle"></i> Discover pitches from others in your industry or country.</li>
+          <li><i class="bi bi-check-circle"></i> Build meaningful connections and grow your professional network.</li>
         </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
-
-      <a class="btn-getstarted" href="{% url 'accounts:signup' %}">Get Started</a>
-
-    </div>
-  </header>
-
-  <main class="main">
-
-    <!-- Hero Section -->
-    <section id="hero" class="hero section">
-      <div class="hero-bg">
-        <img src="{% static 'core/img/hero-bg-light.webp' %}" alt="">
+        <a href="{% url 'accounts:signup' %}" class="read-more"><span>Get Started</span><i class="bi bi-arrow-right"></i></a>
       </div>
-      <div class="container text-center">
-        <div class="d-flex flex-column justify-content-center align-items-center">
-          <h1 data-aos="fade-up">Welcome to <span>PitchDeck</span></h1>
-          <p data-aos="fade-up" data-aos-delay="100">Showcase your ideas, connect with professionals, and build meaningful relationships.</p>
-          <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-            <a href="{% url 'accounts:signup' %}" class="btn-get-started">Get Started</a>
-            <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
-          </div>
-          <img src="{% static 'core/img/hero-services-img.webp' %}" class="img-fluid hero-img" alt="" data-aos="zoom-out" data-aos-delay="300">
-        </div>
-      </div>
-    </section><!-- /Hero Section -->
-
-    <!-- About Section -->
-    <section id="about" class="about section">
-      <div class="container">
-        <div class="row gy-4">
-          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
-            <h3>What is PitchDeck?</h3>
-            <p class="fst-italic">
-              PitchDeck is a platform designed to help you showcase your ideas, connect with like-minded professionals, and build your network.
-            </p>
-            <ul>
-              <li><i class="bi bi-check-circle"></i> Create and share your personalized pitch.</li>
-              <li><i class="bi bi-check-circle"></i> Discover pitches from others in your industry or country.</li>
-              <li><i class="bi bi-check-circle"></i> Build meaningful connections and grow your professional network.</li>
-            </ul>
-            <a href="{% url 'accounts:signup' %}" class="read-more"><span>Get Started</span><i class="bi bi-arrow-right"></i></a>
-          </div>
-          <div class="col-lg-6 about-images" data-aos="fade-up" data-aos-delay="200">
-            <img src="{% static 'core/img/about-company-1.jpg' %}" class="img-fluid" alt="">
-          </div>
-        </div>
-      </div>
-    </section><!-- /About Section -->
-
-    <!-- Features Section -->
-    <section id="features" class="features section">
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Features</h2>
-        <p>Explore the powerful features of PitchDeck.</p>
-      </div>
-      <div class="container">
-        <div class="row gy-4">
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="feature-item">
-              <i class="bi bi-person"></i>
-              <h4>Create Your Profile</h4>
-              <p>Showcase your skills, experiences, and social links in one place.</p>
-            </div>
-          </div>
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-            <div class="feature-item">
-              <i class="bi bi-people"></i>
-              <h4>Discover Pitches</h4>
-              <p>Browse pitches from professionals in your industry or country.</p>
-            </div>
-          </div>
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
-            <div class="feature-item">
-              <i class="bi bi-search"></i>
-              <h4>Search and Filter</h4>
-              <p>Find relevant pitches using advanced search and filter options.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section><!-- /Features Section -->
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact section">
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Contact Us</h2>
-        <p>Have questions? Get in touch with us.</p>
-      </div>
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <div class="row gy-4">
-          <div class="col-lg-6">
-            <div class="info-item">
-              <i class="bi bi-geo-alt"></i>
-              <h3>Address</h3>
-              <p>A108 Adam Street, New York, NY 535022</p>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <div class="info-item">
-              <i class="bi bi-telephone"></i>
-              <h3>Call Us</h3>
-              <p>+1 5589 55488 55</p>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <div class="info-item">
-              <i class="bi bi-envelope"></i>
-              <h3>Email Us</h3>
-              <p>info@pitchdeck.com</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section><!-- /Contact Section -->
-
-  </main>
-
-  <footer id="footer" class="footer">
-    <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">PitchDeck</strong><span>All Rights Reserved</span></p>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      <div class="col-lg-6 about-images" data-aos="fade-up" data-aos-delay="200">
+        <img src="{% static 'core/img/about.jpg' %}" class="img-fluid" alt="">
       </div>
     </div>
-  </footer>
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  </div>
+</section>
 
-  <!-- Preloader -->
-  <div id="preloader"></div>
+<!-- Features Section -->
+<section id="features" class="features section">
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Features</h2>
+    <p>Explore the powerful features of PitchDeck.</p>
+  </div>
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="feature-item">
+          <i class="bi bi-person"></i>
+          <h4>Create Your Profile</h4>
+          <p>Showcase your skills, experiences, and social links in one place.</p>
+        </div>
+      </div>
+      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="feature-item">
+          <i class="bi bi-people"></i>
+          <h4>Discover Pitches</h4>
+          <p>Browse pitches from professionals in your industry or country.</p>
+        </div>
+      </div>
+      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="feature-item">
+          <i class="bi bi-search"></i>
+          <h4>Search and Filter</h4>
+          <p>Find relevant pitches using advanced search and filter options.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <!-- Vendor JS Files -->
-  <script src="{% static 'core/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'core/vendor/aos/aos.js' %}"></script>
-  <script src="{% static 'core/vendor/glightbox/js/glightbox.min.js' %}"></script>
-  <script src="{% static 'core/vendor/swiper/swiper-bundle.min.js' %}"></script>
-  <script src="{% static 'core/js/main.js' %}"></script>
-
-</body>
-
-</html>
+<!-- Contact Section -->
+<section id="contact" class="contact section">
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Contact Us</h2>
+    <p>Have questions? Get in touch with us.</p>
+  </div>
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="row gy-4">
+      <div class="col-lg-6">
+        <div class="info-item">
+          <i class="bi bi-geo-alt"></i>
+          <h3>Address</h3>
+          <p>Justice Street, Karu, Abuja Nigeria</p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="info-item">
+          <i class="bi bi-telephone"></i>
+          <h3>Call Us</h3>
+          <p>+234 902 330 1269</p>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="info-item">
+          <i class="bi bi-envelope"></i>
+          <h3>Email Us</h3>
+          <p>contact.johnjlawal@gmail.com</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

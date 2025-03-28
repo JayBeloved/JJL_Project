@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>{% block title %}PitchDeck{% endblock %}</title>
+  <meta name="description" content="PitchDeck is the ultimate platform for showcasing your ideas, connecting with others, and building meaningful professional relationships.">
+  <meta name="keywords" content="PitchDeck, networking, professional connections, showcase ideas, pitch platform">
+
+  <!-- Favicons -->
+  <link href="{% static 'core/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'core/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'core/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'core/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'core/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'core/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'core/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'core/css/main.css' %}" rel="stylesheet">
+  {% block styles %}
+  {% endblock %}
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="{% url 'core:index' %}" class="logo d-flex align-items-center me-auto">
+        <img src="{% static 'core/img/logo.png' %}" alt="">
+        <h1 class="sitename">PitchDeck</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#hero" class="active">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+      {% if request.user.is_authenticated %}
+        <a class="btn-getstarted" href="{% url 'core:dashboard' %}">Dashboard</a>
+      {% else %}
+        <a class="btn-getstarted" href="{% url 'accounts:login' %}">Login</a>
+      {% endif %}
+      <a class="btn-getstarted" href="{% url 'pitchdeck:board' %}">PitchBoard</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer id="footer" class="footer">
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">John J. Lawal</strong><span>All Rights Reserved</span></p>
+      <div class="credits">
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'core/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'core/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'core/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'core/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'core/js/main.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+{% extends "layouts/board_base.html" %}
+{% load static %}
+
+{% block title %}{{ pitch.user.username }} - PitchDeck{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="pitch-detail py-5 bg-light" style="margin-top: 80px;"></section>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Pitch Details -->
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex align-items-start">
+                            <img src="{{ pitch.user.profile.profile_image.url }}" alt="Pitch Image" class="rounded me-3" style="width: 150px; height: auto;">
+                            <div>
+                                <p class="text-muted"><i class="fas fa-briefcase"></i> <strong>Industry:</strong> {{ pitch.industry }}</p>
+                                <p class="text-muted"><i class="fas fa-globe"></i> <strong>Country:</strong> {{ pitch.user.profile.country }}</p>
+                                <p class="card-text"><i class="fas fa-comment"></i> {{ pitch.pitch }}</p>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <button class="btn btn-outline-danger like-btn" data-id="{{ pitch.id }}">
+                                <i class="fas fa-heart"></i> <span class="likes-count">{{ pitch.likes.count }}</span>
+                            </button>
+                            <span><i class="fas fa-eye"></i> {{ pitch.clicks }} Views</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Profile -->
+            <div class="col-lg-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <img src="{{ pitch.user.profile.profile_image.url }}" alt="User Profile" class="rounded-circle mb-3" width="120" height="120">
+                        <h4>@{{ pitch.user.username }}</h4>
+                        <p class="text-muted">{{ pitch.user.profile.headline }}</p>
+                        <div class="social-links mt-3">
+                            {% if pitch.linkedin %}
+                                <a href="{{ pitch.linkedin }}" class="btn btn-outline-primary btn-sm me-2"><i class="fab fa-linkedin"></i></a>
+                            {% endif %}
+                            {% if pitch.twitter %}
+                                <a href="{{ pitch.twitter }}" class="btn btn-outline-info btn-sm me-2"><i class="fab fa-twitter"></i></a>
+                            {% endif %}
+                            {% if pitch.website %}
+                                <a href="{{ pitch.website }}" class="btn btn-outline-dark btn-sm me-2"><i class="fas fa-globe"></i></a>
+                            {% endif %}
+                            {% if pitch.instagram %}
+                                <a href="{{ pitch.instagram }}" class="btn btn-outline-danger btn-sm me-2"><i class="fab fa-instagram"></i></a>
+                            {% endif %}
+                            {% if pitch.facebook %}
+                                <a href="{{ pitch.facebook }}" class="btn btn-outline-primary btn-sm me-2"><i class="fab fa-facebook"></i></a>
+                            {% endif %}
+                            {% if pitch.youtube %}
+                                <a href="{{ pitch.youtube }}" class="btn btn-outline-danger btn-sm"><i class="fab fa-youtube"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Similar Pitches -->
+        <div class="similar-pitches mt-5">
+            <h3 class="mb-4">Similar Pitches</h3>
+            <div class="row g-4">
+                {% for similar_pitch in similar_pitches %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card shadow-sm">
+                        <img src="{{ similar_pitch.user.profile.profile_image.url }}" alt="Similar Pitch" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ similar_pitch.title }}</h5>
+                            <p class="text-muted"><strong>Industry:</strong> {{ similar_pitch.industry }}</p>
+                            <p class="text-muted"><strong>Country:</strong> {{ similar_pitch.user.profile.country }}</p>
+                            <a href="{% url 'pitchdeck:pitchdeck_view' similar_pitch.id %}" class="btn btn-primary btn-sm">View Pitch</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Like button functionality
+    document.querySelectorAll('.like-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const pitchId = this.getAttribute('data-id');
+            fetch(`/pitchdeck/like/${pitchId}/`, { method: 'POST', headers: { 'X-CSRFToken': '{{ csrf_token }}' } })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.liked) {
+                        this.classList.add('btn-danger');
+                    } else {
+                        this.classList.remove('btn-danger');
+                    }
+                    this.querySelector('.likes-count').textContent = data.likes_count;
+                });
+        });
+    });
+</script>
+{% endblock %}

@@ -12,8 +12,8 @@ class PitchDeck(models.Model):
     youtube = models.URLField(max_length=200, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    likes = models.ManyToManyField(User, related_name='liked_pitches', blank=True)
     clicks = models.PositiveIntegerField(default=0)
-    likes = models.PositiveIntegerField(default=0)
     INDUSTRY_CHOICES = [
         ('tech', 'Technology'),
         ('finance', 'Finance'),

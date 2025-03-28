@@ -1,45 +1,242 @@
-{% extends "layouts/base.html" %}
+{% extends "layouts/board_base.html" %}
 {% load static %}
 
-{% block title %} PitchDeck Board {% endblock %}
+{% block title %}PitchDeck Board{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<style>
+    /* Add to your existing styles */
+    /* Ensure nav has proper z-index */
+    .navbar {
+        z-index: 1000;
+        position: relative;
+    }
+
+    /* Adjust top-pitches spacing */
+    .top-pitches {
+        margin-top: 70px; /* Match your navbar height */
+        position: relative;
+        z-index: 1;
+    }
+
+    /* If using fixed navbar */
+    .board_base.html .navbar.fixed-top {
+        height: 70px;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* Add scroll padding if using anchor links */
+    html {
+        scroll-padding-top: 70px;
+    }
+
+    .slider-container {
+        scroll-behavior: smooth;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    
+    .slider-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .slide-card {
+        width: 300px;
+        transition: transform 0.2s;
+    }
+
+    .hover-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(transparent 60%, rgba(0,0,0,0.7));
+    }
+
+    .pitch-card .card-img-overlay {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .pitch-card:hover .card-img-overlay {
+        opacity: 1;
+    }
+
+    .object-fit-cover {
+        object-fit: cover;
+    }
+</style>
+{% endblock %}
 
 {% block content %}
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <h2>PitchDeck Board</h2>
-      <form method="get" class="form-inline mb-4">
-        <div class="form-group mr-2">
-          <label for="industry" class="mr-2">Industry</label>
-          <input type="text" class="form-control" id="industry" name="industry" value="{{ industry }}">
-        </div>
-        <div class="form-group mr-2">
-          <label for="country" class="mr-2">Country</label>
-          <input type="text" class="form-control" id="country" name="country" value="{{ country }}">
-        </div>
-        <div class="form-group mr-2">
-          <label for="keywords" class="mr-2">Keywords</label>
-          <input type="text" class="form-control" id="keywords" name="keywords" value="{{ keywords }}">
-        </div>
-        <button type="submit" class="btn btn-primary">Filter</button>
-      </form>
-      <div class="row">
-        {% for pitchdeck in pitchdecks %}
-          <div class="col-md-4 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">{{ pitchdeck.user.username }}</h5>
-                <p class="card-text"><strong>Headline:</strong> {{ pitchdeck.headline }}</p>
-                <p class="card-text"><strong>Pitch:</strong> {{ pitchdeck.pitch|truncatewords:20 }}</p>
-                <p class="card-text"><strong>Industry:</strong> {{ pitchdeck.industry }}</p>
-                <p class="card-text"><strong>Country:</strong> {{ pitchdeck.user.profile.country }}</p>
-                <a href="{% url 'pitchdeck:detail' %}" class="btn btn-primary">View Details</a>
-              </div>
+<!-- Top Pitches Slider -->
+<section class="top-pitches py-4 bg-light">
+    <div class="container-fluid">
+        <div class="spacer" style="height: 20px;"></div>
+        <div class="navbar-spacer" style="height: 30px;"></div>
+        <h2 class="mb-4 ps-3">Trending Pitches 🔥</h2>
+        <div class="slider-container d-flex overflow-auto pb-3 px-2">
+            {% for pitch in top_pitches %}
+            <a href="{% url 'pitchdeck:pitchdeck_view' pitch.id %}" class="text-decoration-none">
+            <div class="slide-card flex-shrink-0 mx-2">
+                <!-- <div class="badge bg-danger position-relative top-0 start-0 m-2">Popular</div> -->
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-img-top position-relative" style="height: 200px; overflow: hidden;">
+                        <img src="{{ pitch.user.profile.profile_image.url }}" 
+                             class="img-fluid w-100 h-100 object-fit-cover" 
+                             alt="{{ pitch.title }}">
+                        <div class="hover-overlay"></div>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-2">
+                            <img src="{{ pitch.user.profile.profile_image.url }}" 
+                                 class="rounded-circle me-2" 
+                                 width="32" 
+                                 height="32" 
+                                 alt="{{ pitch.user.username }}">
+                            <h6 class="mb-0">@{{ pitch.user.username }}</h6>
+                        </div>
+                        <h5 class="card-title mb-2">{{ pitch.title|truncatechars:30 }}</h5>
+                        <div class="d-flex justify-content-between text-muted small">
+                            #{{ pitch.industry }} <span>{{ pitch.created_at|timesince }} ago</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        {% endfor %}
-      </div>
+            </a>
+            {% endfor %}
+        </div>
     </div>
-  </div>
-</div>
+</section>
+
+<!-- Main Grid -->
+<main class="grid-container container py-5">
+    <h2 class="text-center mb-4">All Pitches</h2>
+    <div class="filter-form mb-4">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+            <label for="keywords" class="form-label">Search by Keywords</label>
+            <input type="text" id="keywords" name="keywords" class="form-control" placeholder="Enter keywords" value="{{ keywords }}">
+            </div>
+            <div class="col-md-4">
+            <label for="industry" class="form-label">Filter by Industry</label>
+            <select id="industry" name="industry" class="form-select">
+                <option value="">Select Industry</option>
+                {% for key, value in industry_choices %}
+                <option value="{{ key }}" {% if industry == key %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+            </select>
+            </div>
+            <div class="col-md-4">
+            <label for="country" class="form-label">Filter by Country</label>
+            <select id="country" name="country" class="form-select">
+                <option value="">Select Country</option>
+                {% for key, value in country_choices %}
+                <option value="{{ key }}" {% if country == request.GET.key %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+            </select>
+            </div>
+            <div class="col-md-12 text-center">
+            <button type="submit" class="btn btn-primary">Filter</button>
+            </div>
+        </form>
+    </div>
+    <div class="row g-4" data-masonry='{"percentPosition": true}'>
+        {% for pitch in page_obj %}
+        <div class="col-sm-6 col-lg-4 col-xl-3">
+            <div class="pitch-card card shadow-sm h-100">
+                <div class="card-header bg-white border-0 d-flex align-items-center pt-3">
+                    <img src="{{ pitch.user.profile.profile_image.url }}" 
+                         class="rounded-circle me-3" 
+                         width="45" 
+                         height="45" 
+                         alt="{{ pitch.user.username }}">
+                    <div>
+                        <h5 class="mb-0">@{{ pitch.user.username }}</h5>
+                        <small class="text-muted">{{ pitch.created_at|timesince }} ago</small>
+                    </div>
+                </div>
+                <div class="card-img-container position-relative">
+                    <img src="{{ pitch.user.profile.profile_image.url }}" 
+                         class="card-img-top" 
+                         alt="Pitch visual"
+                         style="height: 250px; object-fit: cover;">
+                    <div class="card-img-overlay d-flex align-items-end">
+                        <div class="w-100 bg-white p-3 rounded">
+                            <h6 class="card-title mb-2">{{ pitch.industry }}</h6>
+                            <p class="card-text small text-truncate">{{ pitch.pitch }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body pt-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-outline-danger like-btn" data-id="{{ pitch.id }}">
+                                <i class="fas fa-heart"></i> <span class="likes-count">{{ pitch.likes.count }}</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                        <div class="tags">
+                            {% for tag in pitch.tags %}
+                            <span class="badge bg-light text-dark border">{{ tag }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="pagination-container text-center mt-4">
+        <nav>
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if industry %}&industry={{ industry }}{% endif %}{% if country %}&country={{ country }}{% endif %}{% if keywords %}&keywords={{ keywords }}{% endif %}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                    <a class="page-link" href="?page={{ num }}{% if industry %}&industry={{ industry }}{% endif %}{% if country %}&country={{ country }}{% endif %}{% if keywords %}&keywords={{ keywords }}{% endif %}">{{ num }}</a>
+                </li>
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if industry %}&industry={{ industry }}{% endif %}{% if country %}&country={{ country }}{% endif %}{% if keywords %}&keywords={{ keywords }}{% endif %}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</main>
+<!-- Masonry Layout -->
+<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+<script>
+    document.querySelectorAll('.like-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const pitchId = this.getAttribute('data-id');
+            fetch(`/pitchdeck/like/${pitchId}/`, { method: 'POST', headers: { 'X-CSRFToken': '{{ csrf_token }}' } })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.liked) {
+                        this.classList.add('btn-danger');
+                    } else {
+                        this.classList.remove('btn-danger');
+                    }
+                    this.querySelector('.likes-count').textContent = data.likes_count;
+                });
+        });
+    });
+</script>
+
 {% endblock %}

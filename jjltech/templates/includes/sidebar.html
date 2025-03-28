@@ -43,12 +43,16 @@
           </a>
           <div class="collapse" id="pitchdeckMenu">
             <ul class="nav">
-                <li class="nav-item {% if 'create-pitchdeck' in request.path %} active {% endif %}"></li>
-                <a class="nav-link" href="{% url 'pitchdeck:create' %}">
-                  <i class="material-icons">add</i>
-                  <p>Create PitchDeck</p>
-                </a>
-                </li>
+                {% if pitchdeck %}
+
+                {% else %}
+                  <li class="nav-item {% if 'create-pitchdeck' in request.path %} active {% endif %}">
+                    <a class="nav-link" href="{% url 'pitchdeck:create' %}">
+                      <i class="material-icons">add</i>
+                      <p>Create PitchDeck</p>
+                    </a>
+                  </li>
+                {% endif %}
                 <li class="nav-item {% if 'detail-pitchdeck' in request.path %} active {% endif %}">
                 <a class="nav-link" href="{% url 'pitchdeck:detail' %}">
                   <i class="material-icons">visibility</i>
