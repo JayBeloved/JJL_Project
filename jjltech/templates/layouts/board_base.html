@@ -27,6 +27,7 @@
 
   <!-- Main CSS File -->
   <link href="{% static 'core/css/main.css' %}" rel="stylesheet">
+
   {% block styles %}
   {% endblock %}
 </head>
@@ -38,7 +39,7 @@
 
       <a href="{% url 'core:index' %}" class="logo d-flex align-items-center me-auto">
         <img src="{% static 'core/img/logo.png' %}" alt="">
-        <h1 class="sitename">PitchDeck</h1>
+        <!-- <h1 class="sitename">PitchDeck</h1> -->
       </a>
 
       <nav id="navmenu" class="navmenu">

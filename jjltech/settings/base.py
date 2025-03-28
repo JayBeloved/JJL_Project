@@ -1,5 +1,4 @@
 from pathlib import Path
-from pathlib import Path
 from decouple import config, Csv
 from dotenv import load_dotenv
 import dj_database_url
