@@ -21,6 +21,7 @@ dotenv = "*"
 pillow = "*"
 django-countries = "*"
 whitenoise = "*"
+gunicorn = "*"
 
 [dev-packages]
 
