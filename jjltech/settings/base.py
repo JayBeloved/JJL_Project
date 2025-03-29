@@ -120,6 +120,7 @@ LOCALE_PATHS = [BASE_DIR / "locale"]
 
 LOGIN_URL = 'accounts:login'
 LOGIN_REDIRECT_URL = 'core:dashboard'
+LOGOUT_REDIRECT_URL = 'core:index'
 
 # ==============================================================================
 # STATIC FILES SETTINGS
