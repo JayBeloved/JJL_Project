@@ -25,6 +25,7 @@ gunicorn = "*"
 boto = "*"
 django-storages = "*"
 pymongo = {extras = ["srv"], version = "*"}
+awscli = "*"
 
 [dev-packages]
 
