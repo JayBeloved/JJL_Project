@@ -22,6 +22,9 @@ pillow = "*"
 django-countries = "*"
 whitenoise = "*"
 gunicorn = "*"
+boto = "*"
+django-storages = "*"
+pymongo = {extras = ["srv"], version = "*"}
 
 [dev-packages]
 

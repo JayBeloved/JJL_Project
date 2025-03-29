@@ -6,7 +6,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     country = CountryField(blank_label='(select country)', default='NG')
     headline = models.CharField(max_length=150, blank=True)
-    profile_image = models.ImageField(upload_to='accounts/profiles/', blank=True)
+    profile_image = models.ImageField(upload_to='profile_pics/', blank=True)
     bio = models.TextField(max_length=1000, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
