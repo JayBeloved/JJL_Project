@@ -15,24 +15,24 @@ class Profile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def save(self, *args, **kwargs):
-        logger.info(f"Saving profile for user: {self.user.username}")
-        try:
-            if self.profile_image:
-                # Get the file extension
-                ext = os.path.splitext(self.profile_image.name)[1]
-                # Rename the file to the user's username
-                new_filename = f"{self.user.username}{ext}"
-                # Save the file with the new name
-                self.profile_image.name = f"{new_filename}"
+    # def save(self, *args, **kwargs):
+    #     logger.info(f"Saving profile for user: {self.user.username}")
+    #     try:
+    #         if self.profile_image:
+    #             # Get the file extension
+    #             ext = os.path.splitext(self.profile_image.name)[1]
+    #             # Rename the file to the user's username
+    #             new_filename = f"{self.user.username}{ext}"
+    #             # Save the file with the new name
+    #             self.profile_image.name = f"{new_filename}"
 
-            if self.profile_image:
-                print(f"Saving file to: {self.profile_image.name}")
+    #         if self.profile_image:
+    #             print(f"Saving file to: {self.profile_image.name}")
 
-            super().save(*args, **kwargs)
-        except Exception as e:
-            logger.error(f"Error saving profile image: {e}")
-            raise
+    #         super().save(*args, **kwargs)
+    #     except Exception as e:
+    #         logger.error(f"Error saving profile image: {e}")
+    #         raise
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
