@@ -23,9 +23,10 @@ django-countries = "*"
 whitenoise = "*"
 gunicorn = "*"
 boto = "*"
-django-storages = "*"
 pymongo = {extras = ["srv"], version = "*"}
 awscli = "*"
+django-storages = "*"
+boto3 = "*"
 
 [dev-packages]
 

@@ -23,10 +23,9 @@ class Profile(models.Model):
                 ext = os.path.splitext(self.profile_image.name)[1]
                 # Rename the file to the user's username
                 new_filename = f"{self.user.username}{ext}"
-                # Save the file with the new name
-                self.profile_image.name = f"{new_filename}"
+                # Save the file with the new name - include the folder!
+                self.profile_image.name = f"profile_pics/{new_filename}"
 
-            if self.profile_image:
                 print(f"Saving file to: {self.profile_image.name}")
 
             super().save(*args, **kwargs)
