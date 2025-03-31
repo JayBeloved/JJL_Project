@@ -56,22 +56,24 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='contact.johnjlawal@gm
 # ==============================================================================
 # Amazon S3 Settings
 # ==============================================================================
-INSTALLED_APPS += [
-    'storages',
-]
+# INSTALLED_APPS += [
+#     'storages',
+# ]
 
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME', default='us-east-2')
-# AWS_QUERYSTRING_AUTH = False
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_S3_FILES_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com/'
-# Add these to production.py
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
-AWS_S3_SIGNATURE_VERSION = 's3v4'
-AWS_S3_ADDRESSING_STYLE = 'virtual'  # Use virtual-hosted style URL
+# AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+# AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+# AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME', default='us-east-2')
+# # AWS_QUERYSTRING_AUTH = False
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# AWS_S3_FILES_OVERWRITE = False
+# AWS_DEFAULT_ACL = None
+# MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com/'
+# # Add these to production.py
+# AWS_S3_OBJECT_PARAMETERS = {
+#     'CacheControl': 'max-age=86400',
+# }
+# AWS_S3_SIGNATURE_VERSION = 's3v4'
+# AWS_S3_ADDRESSING_STYLE = 'virtual'  # Use virtual-hosted style URL
+MEDIA_ROOT = BASE_DIR.parent / 'media'
+MEDIA_URL = '/media/'
